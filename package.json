@@ -6,7 +6,7 @@
   "author": "李元琦 <joyceleeya@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "eslint": "^7.12.1",
