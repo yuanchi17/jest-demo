@@ -10,37 +10,26 @@ const ROMAN_NUM = {
   M: 1000,
 }
 
-exports.getAns = (rA, rB) => {
-  try {
-    const ERR_TEXT = '請輸入正確並小於 4000 的羅馬數字'
-    if (/[^MCXIDLV]/.test(rA) || rA === 'MMMM') throw ERR_TEXT
-    if (/[^MCXIDLV]/.test(rB) || rB === 'MMMM') throw ERR_TEXT
-    return exports.numToRoman(exports.getAbs(rA, rB))
-  } catch (err) {
-    return err
-  }
-}
-
-exports.getAbs = (rA, rB) => {
-  return Math.abs(exports.romanToNum(rA) - exports.romanToNum(rB))
+exports.getSub = (rA, rB) => {
+  return exports.numToRoman(Math.abs(exports.romanToNum(rA) - exports.romanToNum(rB)))
 }
 
 exports.romanToNum = roman => {
-  const sumTmp = []
+  let sum = 0
   const nArray = _.map(roman, r => ROMAN_NUM[r]) // 將羅馬數字轉為數字陣列
   for (let i = 0; i < nArray.length; i++) {
     // 判斷加減
-    if (nArray[i] < nArray[i + 1]) {
-      sumTmp.push(Math.abs(nArray[i] - nArray[i + 1]))
+    if ((i < nArray.length - 1) && (nArray[i] < nArray[i + 1])) {
+      sum += (nArray[i + 1] - nArray[i])
       i++
       continue
     }
-    sumTmp.push(nArray[i])
+    sum += nArray[i]
   }
-  return _.sum(sumTmp)
+  return sum
 }
 
-exports.numToRoman = num => { // 解法 1
+exports.numToRoman = num => {
   const ans = []
   const romanUnit = ['M', 'C', 'X', 'I'] // 千百十個
   const romanNight = ['CM', 'XC', 'IX'] // 900, 90, 9
@@ -68,7 +57,5 @@ exports.numToRoman = num => { // 解法 1
     ans.push(_.padStart(romanUnit[i], strNum[i], romanUnit[i]))
   }
 
-  let ansRoman = ''
-  _.each(ans, r => { ansRoman += r })
-  return ansRoman
+  return ans.join('')
 }
