@@ -2,7 +2,7 @@
   "name": "jest-demo",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/lyccccc17/jest-demo.git",
+  "repository": "https://github.com/yuanchi17/jest-demo.git",
   "author": "李元琦 <joyceleeya@gmail.com>",
   "license": "MIT",
   "scripts": {
