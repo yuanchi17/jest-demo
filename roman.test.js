@@ -62,10 +62,9 @@ describe('羅馬數字減法運算', () => {
 
   test('getSub 應該要執行減法（mock版）', () => {
     // arrange
-    roman._numToRoman = roman.numToRoman
-    roman.numToRoman = jest.fn()
-    roman._romanToNum = roman.romanToNum
-    roman.romanToNum = jest.fn().mockReturnValueOnce(2).mockReturnValueOnce(2000)
+    jest.spyOn(roman, 'numToRoman')
+    jest.spyOn(roman, 'romanToNum')
+    roman.romanToNum.mockReturnValueOnce(2).mockReturnValueOnce(2000)
 
     // act
     roman.getSub('', '')
@@ -76,8 +75,8 @@ describe('羅馬數字減法運算', () => {
     expect(roman.numToRoman).toHaveBeenCalledWith(1998)
 
     // 場復
-    roman.numToRoman = roman._numToRoman
-    roman.romanToNum = roman._romanToNum
+    roman.numToRoman.mockRestore()
+    roman.romanToNum.mockRestore()
   })
 
   test.each([
